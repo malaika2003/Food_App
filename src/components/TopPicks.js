@@ -2,8 +2,9 @@ import React from 'react'
 import {topPicks} from '../data/data'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-
+import { useCart } from './context/cart.js';
 const TopPicks = () => {
+  const [cart, setCart] = useCart();
   return (
     <>
       <h1 className='text-purple-700 font-bold text-2xl text-center py-2'>Top Picks</h1>
@@ -17,7 +18,15 @@ const TopPicks = () => {
                         <div className='absolute w-full h-full bg-black/50 rounded-3xl text-white'>
                             <p className='px-4 py-2 font-bold'>{item.title}</p>
                             
-                            <button className='border-white text-white absolute bottom-4 bg-purple-800 ml-2'>Add to Cart</button>
+                            <button className='border-white text-white absolute bottom-4 bg-purple-800 ml-2' onClick={() => {
+                              console.log(item);
+                              setCart([...cart, item]);
+                              localStorage.setItem(
+                                "cart",
+                                JSON.stringify([...cart, item])
+                              );
+                            
+                            }}>Add to Cart</button>
                             <p className=' text-white text-end mr-10 mt-[115px]'>{item.price}</p>
                         </div>
                         <img className='h-[200px] w-full object-cover rounded-3xl cursor-pointer hover:scale-105 ease-out duration-300' src={item.img} alt={item.title}/>

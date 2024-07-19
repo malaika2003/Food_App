@@ -4,9 +4,15 @@ import {BsFillCartFill, BsPerson} from 'react-icons/bs'
 import {TbTruckReturn} from 'react-icons/tb'
 import {FaGoogleWallet} from 'react-icons/fa'
 import {MdHelp, MdOutlineFavorite} from 'react-icons/md'
+import { useNavigate } from "react-router-dom";
+import { useCart } from "./context/cart.js";
 const Nav = () => {
-
-  const [sideNav,setSideNav]=useState(false)
+  const [cart] = useCart();
+  const [sideNav,setSideNav]=useState(false);
+  const Navigate =useNavigate();
+  const HandleClick = () => {
+      Navigate('/cart');
+  }
 
   return (
     <div className='max-w-[1520px] mx-auto flex justify-between items-center px-4 py-2'>
@@ -24,9 +30,11 @@ const Nav = () => {
                 <AiOutlineSearch size={20}/>
                 <input className='bg-transparent w-full p-2 focus:outline-none' type='text' placeholder='Search' />
       </div>
-      <button className=' flex text-white hidden: md-flex items-center py-2 rounded-full bg-purple-500 h-8'> 
-               <BsFillCartFill size={20}/> <span className='mx-1'> Cart</span>
+      
+      <button className=' flex text-white hidden: md-flex items-center py-2 rounded-full bg-purple-500 h-8' onClick={() => HandleClick()}> 
+               <BsFillCartFill size={20}/> <span className='mx-1'> Cart ({cart.length})</span>
       </button>
+       
       {
         sideNav? (
           <div className='bg-black/60 w-full h-screen z-10 fixed top-0 left-0'

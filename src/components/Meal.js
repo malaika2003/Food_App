@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import { mealData } from '../data/data'
 import {ArrowSmRightIcon} from '@heroicons/react/outline'
+import { useNavigate } from "react-router-dom";
 
 const Meal = () => {
+  const Navigate= useNavigate();
   const [foods, setFoods] = useState(mealData)
   const fillterCat=(category)=>{
     setFoods(
@@ -11,6 +13,11 @@ const Meal = () => {
       })
     )
   }
+
+const HandleClick = (item) =>{
+     Navigate('/viewmore', { state: item })
+    
+}
   return (
     <div className='max-w-[1520px] m-auto px-4 py-12'>
      <h1 className='text-purple-700 font-bold text-2xl text-center py-2'>Meals</h1> 
@@ -36,7 +43,7 @@ const Meal = () => {
                    </div>
 
                    <div className='pl-2 py-4 -mt-7'>
-                       <p className='flex items-center text-purple-800 font-semibold'>View More <ArrowSmRightIcon className='w-5 ml-2'/></p>
+                       <p className='flex items-center text-purple-800 font-semibold' onClick={async ()=> await HandleClick(item)}> View More <ArrowSmRightIcon className='w-5 ml-2'/></p>
                    </div>
                 </div>
                 )
